@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/translate.svg</file>
+        <file>icon/app.png</file>
+        <file>icon/minimize_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/download_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/arrow_forward_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/settings_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/home_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/menu_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/close_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/done_FILL0_wght400_GRAD0_opsz48.png</file>
+        <file>icon/x.png</file>
+        <file>icon/Baidu_Translate.png</file>
+    </qresource>
+</RCC>
