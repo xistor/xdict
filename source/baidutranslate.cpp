@@ -11,7 +11,7 @@ BaiduTranslate::BaiduTranslate()
 }
 
 
-QString BaiduTranslate::langDetect(QString word)
+QString BaiduTranslate::langDetect(const QString &word)
 {
     QUrlQuery data;
     data.addQueryItem("query", word);
@@ -40,13 +40,13 @@ QString BaiduTranslate::langDetect(QString word)
 
 QString BaiduTranslate::translate(const QString &src, const QString &dst, const QString &word)
 {
+    qDebug() << "BaiduTranslate::translate :" << src << dst << word;
 
     QSettings settings("settings.ini", QSettings::IniFormat);
     QString appId = settings.value("appID").toString();
     QString secretKey = settings.value("secretKey").toString();
     QString url = settings.value("baiduUrl").toString();
 
-    qInfo() << "appId" << appId;
     int a = rand();
 
     QString salt = QString::number(a);
@@ -85,7 +85,7 @@ QString BaiduTranslate::translate(const QString &src, const QString &dst, const 
         result += line.toObject()["dst"].toString();
     }
 
-    qDebug() << result;
+    qDebug() << "trans_result" << result;
     return result;
 }
 

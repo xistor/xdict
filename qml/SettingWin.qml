@@ -9,10 +9,10 @@ Window {
     color: "gainsboro"
 
 
-    // Loader加载不同组件，实现切换页面的功能
+
     Loader{
         id:settingLoader
-        anchors.fill: parent // 弹出的界面都居中显示
+        anchors.fill: parent
     }
 
     // on start

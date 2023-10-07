@@ -28,15 +28,14 @@ void Picker::onButtonReleased(int x, int y){
 
 void Picker::onSelectedChanged(){
     qDebug() <<"Picker::onSelectedChanged";
-
+    QString text;
     if(!isPress) {
-        QString text = clipboard->text(QClipboard::Selection);
+        text = clipboard->text(QClipboard::Selection);
         qDebug() << text;
+        emit textSelected(text);
     }
-
 }
 
-void Picker::test()
-{
-    qInfo() << "Hello test";
+QPoint Picker::getTextPostion(){
+    return textPostion;
 }

@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Layouts
 import Qt.labs.platform
+import Translator
 
 Window {
     id: mainWin
@@ -15,6 +16,14 @@ Window {
     visible: true
     title: qsTr("xdict")
     flags: Qt.FramelessWindowHint
+
+    property var floatingWIndow
+
+    Component.onCompleted: {
+        var component = Qt.createComponent("FloatingWin.qml")
+        floatingWIndow    = component.createObject(mainWin)
+        floatingWIndow.visible = false
+    }
 
     // drag resize
     DragHandler {
@@ -121,7 +130,7 @@ Window {
 
                 ComboBox {
                     id: sourceLang
-                    model: ["english", "chinese"]
+                    model: ["auto", "english", "chinese"]
                 }
 
                 ToolButton {
@@ -251,11 +260,6 @@ Window {
                         Layout.rightMargin : 10
                         Layout.bottomMargin: 10
 
-//                        ToolButton {
-//                            Layout.alignment:  Qt.AlignLeft | Qt.AlignBottom
-//                            icon.source: "qrc:/icon/settings_FILL0_wght400_GRAD0_opsz48.png"
-//                        }
-
                         Item {
                             id: it
                             Layout.fillWidth: true
@@ -267,7 +271,7 @@ Window {
                             radius: 10
 
                             onClicked: {
-                               translator.translate(sourceLang.currentText, targetLang.currentText, src_edit.text);
+                               translator.translateText(src_edit.text, Translator.TEXT_INPUT_BOX);
                             }
                         }
                     }
@@ -333,8 +337,19 @@ Window {
     // get translate result
     Connections {
         target: translator
-        function onTranslateResult(result) {
-            tar_edit.text = result
+        function onTranslateResult(result, ts) {
+
+            if(ts === Translator.TEXT_INPUT_BOX)
+            {
+                tar_edit.text = result
+            }
+            else if(ts === Translator.CURSOR_SELECTED)
+            {
+
+                floatingWIndow.visible = true
+
+            }
+
         }
     }
 

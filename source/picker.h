@@ -14,16 +14,15 @@ public:
     void onButtonPressed(int x, int y);
     void onButtonReleased(int x, int y);
     void onSelectedChanged();
-    QPoint getTextPostion();
+    Q_INVOKABLE QPoint getTextPostion();
 
-    Q_INVOKABLE void test();
 private:
     QClipboard *clipboard;
     bool isPress;
     QPoint textPostion;
 
 signals:
-    void textSelected();
+    void textSelected(const QString &selectedText);
 };
 
 #endif // PICKER_H

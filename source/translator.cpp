@@ -13,14 +13,34 @@ Translator::Translator(QObject *parent)
     connect(worker, &QueryWorker::resultReady, this, &Translator::handleResults);
     _workerThread.start();
 
+    _textSrc = UNKNOWN;
 }
 
 
 void Translator::handleResults(const QString & res)
 {
     qDebug() << "Translator::handleResults " << res;
+    if(!res.isNull())
+        emit translateResult(res, _textSrc);
+}
 
-    emit translateResult(res);
+void Translator::autoTranslate(const QString &word)
+{
+    _textSrc = TEXT_INPUT_BOX;
+    emit translate("auto", "chinese", word);
+}
+
+void Translator::translateSelected(const QString &word)
+{
+    _textSrc = CURSOR_SELECTED;
+    emit translate("auto", "chinese", word);
+
+}
+
+void Translator::translateText(const QString &word, TextSrc ts)
+{
+    _textSrc = ts;
+    emit translate("auto", "chinese", word);
 }
 
 QueryWorker::QueryWorker(){

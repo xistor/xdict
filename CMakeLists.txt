@@ -23,12 +23,13 @@ qt_add_qml_module(appxdict
     URI xdict
     VERSION 1.0
     QML_FILES qml/Main.qml qml/SettingWin.qml qml/SettingMain.qml qml/SettingBaidu.qml
+    QML_FILES qml/FloatingWin.qml
     RESOURCES icons.qrc
     SOURCES source/picker.h source/eventmonitor.h  source/blockingqueue.h
     SOURCES source/eventmonitor.cpp source/main.cpp source/picker.cpp
-    QML_FILES config.json
     SOURCES source/translator.h source/translator.cpp
     SOURCES source/baidutranslate.h source/baidutranslate.cpp
+    SOURCES source/floatingwin.h source/floatingwin.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -23,10 +23,10 @@ public:
         return baiduTranslate;
     }
 
-    QString langDetect(QString word);
+    QString langDetect(const QString &word);
     QString translate(const QString &src, const QString &dst, const QString &word);
 
-    QMap<QString, QString> langMap = {{"english", "en"}, {"chinese", "zh"}};
+    QMap<QString, QString> langMap = {{"english", "en"}, {"chinese", "zh"}, {"auto", "auto"}};
 
 private:
     BaiduTranslate();

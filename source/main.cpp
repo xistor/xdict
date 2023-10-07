@@ -12,18 +12,13 @@ int main(int argc, char *argv[])
 {
 
     QGuiApplication app(argc, argv);
-
-
-
-    QSettings::setDefaultFormat(QSettings::IniFormat);
     QGuiApplication::setApplicationName("XDict");
 
     QSettings settings("settings.ini", QSettings::IniFormat);
 
-    qDebug() << QGuiApplication::applicationDirPath();
     Picker *picker = new Picker();
+    Translator *translator = new Translator();
 
-    Translator *tor = new Translator();
     app.setWindowIcon(QIcon(":/icon/app.png"));
     QQmlApplicationEngine engine;
 
@@ -31,8 +26,8 @@ int main(int argc, char *argv[])
 
 
     context->setContextProperty("picker", picker);
-    context->setContextProperty("translator", tor);
-
+    context->setContextProperty("translator", translator);
+    qmlRegisterType<Translator>("Translator", 1, 0, "Translator");
 
     const QUrl url(u"qrc:/xdict/qml/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -41,14 +36,16 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
-
-
-
     // button
     QObject::connect(&EventMonitor::getInstance(), &EventMonitor::buttonPress, picker, &Picker::onButtonPressed, Qt::QueuedConnection);
     QObject::connect(&EventMonitor::getInstance(), &EventMonitor::buttonRelease, picker, &Picker::onButtonReleased, Qt::QueuedConnection);
 
 
+    // text selected
+    QObject::connect(picker, &Picker::textSelected, translator, &Translator::translateSelected, Qt::QueuedConnection);
+
+
     EventMonitor::getInstance().start();
+
     return app.exec();
 }
